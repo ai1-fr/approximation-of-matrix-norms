@@ -3,4 +3,8 @@ Matlab code repository for numerical experiments from the paper "Tight computati
 
 1. "Boeing" peak-to-peak optimized control experiment from Section 3.3.3 of the paper
 
-2. System identification experiment from Section 4.3.2 
+    Code in /boeing folder; use boeing_demo.m to start the simulation
+
+2. System identification experiment from Section 4.3.2
+
+    Code in /ident folder; use id_demo.m to start the simulation
