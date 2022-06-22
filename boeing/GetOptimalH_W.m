@@ -47,9 +47,6 @@ function res=GetOptimalH_W(S,cntr,ImpR,HH,flag,flagW)
 SMALL=0.01;
 p=cntr.pd; d=cntr.d; T=cntr.T;
 nx=S.nx; ny=S.ny; nd=S.nd; nu=S.nu;
-S.scale.x=eye(nx);
-S.scale.u=eye(nu);
-S.scale.y=eye(ny);
 % nz=nx*(d+1);
 nh=nu*ny*d;
 if isempty(HH)
@@ -132,9 +129,9 @@ for t=1:T,
 end;
 for t=1:T,
     if flagd,
-        [pupx(:,:,t),S.scale.x*outx(:,:,t+1);(S.scale.x*outx(:,:,t+1))',mlmx(t)*eye(nd)] == semidefinite(nx+nd);
+        [pupx(:,:,t),outx(:,:,t+1);outx(:,:,t+1)',mlmx(t)*eye(nd)] == semidefinite(nx+nd);
     else
-        [pupx(:,:,t),S.scale.x*outx(:,:,t+1);(S.scale.x*outx(:,:,t+1))',diag(mlmx(t,:))] == semidefinite(nx+nd);
+        [pupx(:,:,t),outx(:,:,t+1);outx(:,:,t+1)',diag(mlmx(t,:))] == semidefinite(nx+nd);
     end;
 end;
 totx=pupx(:,:,1);
@@ -162,9 +159,9 @@ for t=1:T,
 end;
 for t=1:T,
     if flagd,
-        [pupy(:,:,t),S.scale.y*outy(:,:,t);(S.scale.y*outy(:,:,t))',mlmy(t)*eye(nd)] == semidefinite(ny+nd);
+        [pupy(:,:,t),outy(:,:,t);outy(:,:,t)',mlmy(t)*eye(nd)] == semidefinite(ny+nd);
     else
-        [pupy(:,:,t),S.scale.y*outy(:,:,t);(S.scale.y*outy(:,:,t))',diag(mlmy(t,:))] == semidefinite(ny+nd);
+        [pupy(:,:,t),outy(:,:,t);outy(:,:,t)',diag(mlmy(t,:))] == semidefinite(ny+nd);
     end;
 end;
 toty=pupy(:,:,1);
@@ -192,9 +189,9 @@ for t=1:T,
 end;
 for t=1:T,
     if flagd,
-        [pupu(:,:,t),S.scale.u*outu(:,:,t);(S.scale.u*outu(:,:,t))',mlmu(t)*eye(nd)] == semidefinite(nu+nd);
+        [pupu(:,:,t),outu(:,:,t);outu(:,:,t)',mlmu(t)*eye(nd)] == semidefinite(nu+nd);
     else
-        [pupu(:,:,t),S.scale.u*outu(:,:,t);(S.scale.u*outu(:,:,t))',diag(mlmu(t,:))] == semidefinite(nu+nd);
+        [pupu(:,:,t),outu(:,:,t);outu(:,:,t)',diag(mlmu(t,:))] == semidefinite(nu+nd);
     end;
 end;
 totu=pupu(:,:,1);
